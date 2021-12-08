@@ -60,7 +60,7 @@
 }
 .shop-button{
   background-color:rgba(250, 250, 250, 0.7);
-  border:1px solid grey;
+  border:1px solid #A9A9A9;
   cursor:pointer;
 }
 .shop-button:hover{
