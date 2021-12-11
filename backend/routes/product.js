@@ -1,10 +1,12 @@
 const express = require('express');
 
 //model
-const {addProduct} =require('../controllers/product')
+const {addProduct,getProduct,updateProduct} =require('../controllers/product')
 
 const router = express.Router()
 
-router.route('/').get(addProduct)
+router.route('/').get(getProduct).post(addProduct)
+
+router.route('/:id').put(updateProduct);
 
 module.exports = router;

@@ -12,7 +12,7 @@ const app= express();
 
 app.use(express.json());
 
-app.listen(5050, console.log(`server is running ${process.env.NODE_ENV}`));
+app.listen(5000, console.log(`server is running on port ${process.env.NODE_ENV}`));
 
 //mount a route
-app.use('api/v1/products',productRoute);
+app.use('/api/v1/products',productRoute);
