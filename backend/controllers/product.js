@@ -23,11 +23,39 @@ exports.getProduct= async (req,res,err)=>{
     }catch(err){
         console.log(err)
     }
-
-    res.send('get product controller is working')
 }
 
 //update products controller.
 exports.updateProduct= async (req,res,err)=>{
-    res.send('update product controller is working')
+    req.id=req.params.id
+
+    const body=req.body;
+    if (!body){
+            throw "Nothing passed in the body of request";
+    }
+    try{
+        const product= await Product.findByIdAndUpdate(req.params.id,body,{
+            new: true,
+            runValidators: true,
+          })
+
+        res.status(200).json(product);
+
+    }catch(err){
+        console.log(err)
+    }
 }
+
+// delete a product
+exports.deleteProduct = async (req, res, err) => {
+    try{
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            throw 'Product does not exist'
+        }
+        product.remove()
+        res.status(200).json( );
+        }catch(err){
+            console.log(err)
+    }
+};
