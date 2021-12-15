@@ -1,4 +1,5 @@
 
+
 //will need to use my model in the controllers
 const Product= require('../models/Product')
 
@@ -28,12 +29,12 @@ exports.getProduct= async (req,res,err)=>{
 //update products controller.
 exports.updateProduct= async (req,res,err)=>{
     req.id=req.params.id
-
+    //will need to work here, when updating we have to pass in all the required fields to prevent it from changing to none
     const body=req.body;
+    try{
     if (!body){
             throw "Nothing passed in the body of request";
     }
-    try{
         const product= await Product.findByIdAndUpdate(req.params.id,body,{
             new: true,
             runValidators: true,
