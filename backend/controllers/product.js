@@ -55,7 +55,7 @@ exports.deleteProduct = async (req, res, err) => {
             throw 'Product does not exist'
         }
         product.remove()
-        res.status(200).json( );
+        res.status(200).json(product);
         }catch(err){
             console.log(err)
     }
