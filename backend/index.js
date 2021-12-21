@@ -1,20 +1,21 @@
 const express =require('express');
 const dotenv=require('dotenv')
+const morgan=require('morgan')
 
 const productRoute = require('./routes/product')
 const userRoute = require('./routes/user')
 
-// const morgan= require('./middlewares/morgan')
-const morgan=require('morgan')
+const errorHandler=require('./middlewares/errorHandler')
+const connectDb=require('./config/db')
+
 
 dotenv.config({ path: './config/config.env' });
-
-const connectDb=require('./config/db')
 
 connectDb()
 
 const app= express();
 
+//body parser
 app.use(express.json());
 
 server=app.listen(5000, console.log(`server is running on port ${process.env.NODE_ENV}`));
@@ -33,7 +34,6 @@ if (process.env.NODE_ENV==='development'){
   }))
 }
 
-
 //Handling promise rejection
 process.on('unhandledRejection', (err, promise) => {
     console.log(`error:${err.message}`);
@@ -44,3 +44,5 @@ process.on('unhandledRejection', (err, promise) => {
 app.use('/api/v1/products',productRoute);
 app.use('/api/v1/users',userRoute)
 
+//has to come after the mounting of my routes.
+app.use(errorHandler)
