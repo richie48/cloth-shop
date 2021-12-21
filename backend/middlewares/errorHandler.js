@@ -4,6 +4,7 @@ const errorHandler = (err, req, res, next) => {
   //copy the object in err to error
   let error = { ...err };
   error.message = err.message;
+  console.log(err.name)
 
   //Now we can start making handlers for each of the type of error
   if (err.name === 'CastError') {
@@ -26,12 +27,11 @@ const errorHandler = (err, req, res, next) => {
     const message = `object ${err.value} is invalid`;
     error = new errorResponse(message, 404);
   }
-
+  
   console.log(`${err.name} spoted`.red.underline);
   return res
     .status(error.statusCode || 500)
     .json({ success: false, error: error.message || 'server error' });
-
   next();
 };
 
